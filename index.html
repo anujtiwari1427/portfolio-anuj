@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Anuj Rajesh Tiwari - Data Science Portfolio. Exploring neural networks, database queries, and graphic design with interactive 3D visualizers." />
+    <meta name="keywords" content="Anuj Rajesh Tiwari, Data Science, Portfolio, 3D Web, Python, SQL, Mumbai University" />
+    <title>Anuj Rajesh Tiwari | Data Science Portfolio & Nexus</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- 3D Canvas Background -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Multilingual Preloader -->
+    <div id="preloader">
+      <p id="preloader-word">
+        <span class="preloader-dot"></span>
+        <span id="preloader-word-text">Hello</span>
+      </p>
+      <svg id="preloader-svg" xmlns="http://www.w3.org/2000/svg">
+        <path id="preloader-curve" fill="#111114"></path>
+      </svg>
+    </div>
+
+    <div class="portfolio-layout">
+      <!-- Mobile Top Navbar -->
+      <header class="mobile-header">
+        <div class="logo">
+          <a href="#hero">
+            <span class="logo-accent">&lt;</span>ANUJ<span class="logo-accent"> /&gt;</span>
+          </a>
+        </div>
+        <div class="mobile-toggle" id="mobile-menu-toggle">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </header>
+
+      <!-- Glassmorphic Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-avatar">
+            <img src="/src/assets/profile.jpg" alt="Anuj Rajesh Tiwari">
+          </div>
+          <h2 class="sidebar-name">ANUJ R. TIWARI</h2>
+          <p class="sidebar-subtitle">Data Science & Web Dev</p>
+        </div>
+
+        <nav class="sidebar-nav">
+          <ul class="sidebar-nav-list">
+            <li><a href="#hero" class="sidebar-nav-link active" id="nav-hero-btn"><span class="nav-num">00.</span> Home</a></li>
+            <li><a href="#about" class="sidebar-nav-link" id="nav-about-btn"><span class="nav-num">01.</span> About</a></li>
+            <li><a href="#skills" class="sidebar-nav-link" id="nav-skills-btn"><span class="nav-num">02.</span> Matrix</a></li>
+            <li><a href="#education" class="sidebar-nav-link" id="nav-education-btn"><span class="nav-num">03.</span> Education</a></li>
+            <li><a href="#projects" class="sidebar-nav-link" id="nav-projects-btn"><span class="nav-num">04.</span> Nexus</a></li>
+            <li><a href="#contact" class="sidebar-nav-link" id="nav-contact-btn"><span class="nav-num">05.</span> Connection</a></li>
+          </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="sidebar-db-record">
+            <h4 class="db-record-title">NEXUS DB RECORD</h4>
+            <ul class="db-details">
+              <li><span class="key">location:</span> <span class="val">Kalyan, MH, IN</span></li>
+              <li><span class="key">status:</span> <span class="val pulse-text">ACTIVE_STUDENT</span></li>
+              <li><span class="key">email:</span> <span class="val link-val"><a href="mailto:anujat9987@gmail.com" id="sidebar-email-link">anujat9987@gmail.com</a></span></li>
+              <li><span class="key">phone:</span> <span class="val link-val"><a href="tel:+917710916655" id="sidebar-phone-link">+91 7710916655</a></span></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Viewport -->
+      <main class="main-content">
+      <!-- HERO SECTION -->
+      <section id="hero" class="hero-section">
+        <div class="hero-content">
+          <div class="badge neon-glow-cyan">DATA SCIENCE & WEB DEV</div>
+          <h1 class="hero-title">ANUJ RAJESH TIWARI</h1>
+          <h2 class="hero-subtitle">
+            <span id="typewriter-text"></span><span class="cursor-blink">|</span>
+          </h2>
+          <p class="hero-desc">
+            Pursuing Bachelor of Science in Data Science at the University of Mumbai. Combining programming, database management, and interactive visuals.
+          </p>
+          <div class="hero-actions">
+            <a href="#skills" class="btn btn-primary" id="explore-skills-btn">Explore Skills</a>
+            <a href="#contact" class="btn btn-secondary" id="direct-contact-btn">Run Query</a>
+          </div>
+        </div>
+        <div class="scroll-down-indicator" id="scroll-indicator">
+          <span>SCROLL DOWN</span>
+          <div class="mouse-icon">
+            <div class="wheel"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT SECTION -->
+      <section id="about" class="about-section scroll-reveal">
+        <div class="section-container">
+          <div class="section-header">
+            <span class="section-number">01.</span>
+            <h2 class="section-title">ABOUT ME</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-card glassmorphic">
+              <div class="card-glow"></div>
+              <h3>Professional Summary</h3>
+              <p>
+                Dedicated and enthusiastic aspiring educator currently pursuing a Bachelor of Science in Data Science from the University of Mumbai. Possesses strong communication, presentation, and interpersonal skills with a passion for teaching and student development. Skilled in Python, SQL, Web Development, and Graphic Designing, enabling the integration of technology into modern learning environments. Known for patience, adaptability, and a commitment to creating positive, engaging learning experiences.
+              </p>
+              
+              <div class="interests-container">
+                <h4>Core Interests</h4>
+                <div class="interests-tags">
+                  <span class="interest-tag"><span class="icon">♟️</span> Chess Master</span>
+                  <span class="interest-tag"><span class="icon">💻</span> Coding</span>
+                  <span class="interest-tag"><span class="icon">📰</span> Tech & Business News</span>
+                  <span class="interest-tag"><span class="icon">📊</span> Data Visualization</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-details glassmorphic">
+              <div class="card-glow"></div>
+              <h3>Nexus Database Record</h3>
+              <ul class="db-details">
+                <li><span class="key">location:</span> <span class="val">Kalyan, Maharashtra, IN</span></li>
+                <li><span class="key">dob:</span> <span class="val">14 / 05 / 2007</span></li>
+                <li><span class="key">languages:</span> <span class="val">English, Hindi, Marathi</span></li>
+                <li><span class="key">status:</span> <span class="val pulse-text">ACTIVE_STUDENT</span></li>
+                <li><span class="key">email:</span> <span class="val link-val"><a href="mailto:anujat9987@gmail.com" id="about-email-link">anujat9987@gmail.com</a></span></li>
+                <li><span class="key">phone:</span> <span class="val link-val"><a href="tel:+917710916655" id="about-phone-link">+91 7710916655</a></span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS SECTION -->
+      <section id="skills" class="skills-section scroll-reveal">
+        <div class="section-container">
+          <div class="section-header">
+            <span class="section-number">02.</span>
+            <h2 class="section-title">TECHNICAL MATRIX</h2>
+            <div class="section-line"></div>
+          </div>
+          
+          <div class="skills-layout">
+            <!-- 3D Skill Tag Cloud (Three.js renders inside this container) -->
+            <div class="skills-visualizer-container glassmorphic" id="skills-3d-container">
+              <div class="card-glow"></div>
+              <div class="visualizer-header">
+                <span class="badge neon-glow-purple">3D SKILL CLOUD</span>
+                <p class="visualizer-hint">Click nodes to query database statistics</p>
+              </div>
+              <div id="skills-canvas-holder"></div>
+            </div>
+
+            <!-- Skill details panel with interactive canvas charts -->
+            <div class="skills-detail-panel glassmorphic" id="skills-chart-panel">
+              <div class="card-glow"></div>
+              <h3 id="selected-skill-title">Select a Skill Node</h3>
+              <p id="selected-skill-desc">Hover or click a skill node in the 3D cluster to load database logs and visualization metrics.</p>
+              
+              <div class="canvas-chart-wrapper">
+                <canvas id="skill-chart-canvas" width="400" height="240"></canvas>
+              </div>
+
+              <div class="skill-specs">
+                <div class="spec-row">
+                  <span>proficiency:</span>
+                  <div class="progress-bar-bg">
+                    <div id="selected-skill-progress" class="progress-bar-fill" style="width: 0%"></div>
+                  </div>
+                </div>
+                <div class="spec-row">
+                  <span>frequency:</span>
+                  <span id="selected-skill-frequency">N/A</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EDUCATION SECTION -->
+      <section id="education" class="education-section scroll-reveal">
+        <div class="section-container">
+          <div class="section-header">
+            <span class="section-number">03.</span>
+            <h2 class="section-title">EDUCATION LOGS</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="timeline">
+            <!-- Timeline Item 1 -->
+            <div class="timeline-item left scroll-reveal-item">
+              <div class="timeline-dot neon-glow-cyan"></div>
+              <div class="timeline-card glassmorphic">
+                <div class="card-glow"></div>
+                <span class="timeline-date">2025 - Present</span>
+                <h3>B.Sc. Data Science</h3>
+                <h4 class="timeline-org">University of Mumbai</h4>
+                <p class="timeline-desc">
+                  Studying advanced probability, statistical modeling, database design, and machine learning structures. Building a solid foundation in computational data science.
+                </p>
+                <div class="timeline-badge">Pursuing</div>
+              </div>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="timeline-item right scroll-reveal-item">
+              <div class="timeline-dot neon-glow-purple"></div>
+              <div class="timeline-card glassmorphic">
+                <div class="card-glow"></div>
+                <span class="timeline-date">Completed: 2024</span>
+                <h3>Higher Secondary Certificate (HSC)</h3>
+                <h4 class="timeline-org">HSC Board</h4>
+                <p class="timeline-desc">
+                  Focused on science curriculum with major subjects including physics, chemistry, and mathematics. Developed foundational analytical capabilities.
+                </p>
+                <div class="timeline-badge score">Score: 64.33%</div>
+              </div>
+            </div>
+
+            <!-- Timeline Item 3 -->
+            <div class="timeline-item left scroll-reveal-item">
+              <div class="timeline-dot neon-glow-blue"></div>
+              <div class="timeline-card glassmorphic">
+                <div class="card-glow"></div>
+                <span class="timeline-date">Completed: 2022</span>
+                <h3>Secondary School Certificate (SSC)</h3>
+                <h4 class="timeline-org">SSC Board</h4>
+                <p class="timeline-desc">
+                  Acquired general education. Excelled in computational logic, mathematics, and natural science studies.
+                </p>
+                <div class="timeline-badge score">Score: 85.60%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS & CERTIFICATIONS SECTION -->
+      <section id="projects" class="projects-section scroll-reveal">
+        <div class="section-container">
+          <div class="section-header">
+            <span class="section-number">04.</span>
+            <h2 class="section-title">NEXUS PROJECTS & ACHIEVEMENTS</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <div class="projects-grid">
+            <!-- Project Card 1: Deloitte -->
+            <article class="project-card glassmorphic certificate-card" id="card-deloitte" data-cert="/certificates/data-analytics-simulation.jpg" data-title="Deloitte Data Analytics Job Simulation">
+              <div class="card-glow"></div>
+              <div class="project-img-container">
+                <img src="/certificates/data-analytics-simulation.jpg" alt="Deloitte Certificate" class="project-thumbnail">
+                <div class="thumbnail-overlay">
+                  <span class="view-cert-btn">✨ View Certificate</span>
+                </div>
+              </div>
+              <div class="project-card-content">
+                <div class="project-tags">
+                  <span>Certification</span>
+                  <span>Data Analysis</span>
+                </div>
+                <h3 class="project-title">Deloitte Data Analytics Job Simulation</h3>
+                <p class="project-desc">
+                  Completed forensic technology and data analytics simulations covering data cleaning, analysis, and insights modeling.
+                </p>
+                <div class="project-links">
+                  <span class="badge neon-glow-cyan">Completed (Jan 2026)</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project Card 2: Simplilearn -->
+            <article class="project-card glassmorphic certificate-card" id="card-simplilearn" data-cert="/certificates/ai-beginners-guide.jpg" data-title="Artificial Intelligence Beginners Guide">
+              <div class="card-glow"></div>
+              <div class="project-img-container">
+                <img src="/certificates/ai-beginners-guide.jpg" alt="Simplilearn Certificate" class="project-thumbnail">
+                <div class="thumbnail-overlay">
+                  <span class="view-cert-btn">✨ View Certificate</span>
+                </div>
+              </div>
+              <div class="project-card-content">
+                <div class="project-tags">
+                  <span>Certification</span>
+                  <span>AI & ML</span>
+                </div>
+                <h3 class="project-title">Artificial Intelligence Beginners Guide</h3>
+                <p class="project-desc">
+                  Gained core understanding of artificial intelligence, machine learning pipelines, deep learning models, and algorithm mechanics from Simplilearn.
+                </p>
+                <div class="project-links">
+                  <span class="badge neon-glow-purple">Completed (Dec 2025)</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project Card 3: uniAthena -->
+            <article class="project-card glassmorphic certificate-card" id="card-uniathena" data-cert="/certificates/excel-formulas.jpg" data-title="Essentials of MS Excel - Formulas and Functions">
+              <div class="card-glow"></div>
+              <div class="project-img-container">
+                <img src="/certificates/excel-formulas.jpg" alt="uniAthena Certificate" class="project-thumbnail">
+                <div class="thumbnail-overlay">
+                  <span class="view-cert-btn">✨ View Certificate</span>
+                </div>
+              </div>
+              <div class="project-card-content">
+                <div class="project-tags">
+                  <span>Certification</span>
+                  <span>Excel Analysis</span>
+                </div>
+                <h3 class="project-title">Essentials of MS Excel</h3>
+                <p class="project-desc">
+                  Acquired expertise in formulas, cells logical logic, pivot formatting, and advanced operations in spreadsheet applications.
+                </p>
+                <div class="project-links">
+                  <span class="badge neon-glow-blue">Completed (Apr 2026)</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project Card 4: IBM Big Data -->
+            <article class="project-card glassmorphic certificate-card" id="card-ibm-bigdata" data-cert="/certificates/big-data-101.jpg" data-title="IBM Big Data 101">
+              <div class="card-glow"></div>
+              <div class="project-img-container">
+                <img src="/certificates/big-data-101.jpg" alt="IBM Certificate" class="project-thumbnail">
+                <div class="thumbnail-overlay">
+                  <span class="view-cert-btn">✨ View Certificate</span>
+                </div>
+              </div>
+              <div class="project-card-content">
+                <div class="project-tags">
+                  <span>Certification</span>
+                  <span>Big Data</span>
+                </div>
+                <h3 class="project-title">Big Data 101</h3>
+                <p class="project-desc">
+                  Completed IBM-powered certification covering Big Data technologies, Hadoop pipelines, scalability structures, and architectural analytics.
+                </p>
+                <div class="project-links">
+                  <span class="badge neon-glow-cyan">Completed (May 2026)</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project Card 5: ICAT Aptitude Test -->
+            <article class="project-card glassmorphic certificate-card" id="card-icat" data-cert="/certificates/icat-aptitude-test.jpg" data-title="Internship Common Aptitude Test Participation">
+              <div class="card-glow"></div>
+              <div class="project-img-container">
+                <img src="/certificates/icat-aptitude-test.jpg" alt="ICAT Certificate" class="project-thumbnail">
+                <div class="thumbnail-overlay">
+                  <span class="view-cert-btn">✨ View Certificate</span>
+                </div>
+              </div>
+              <div class="project-card-content">
+                <div class="project-tags">
+                  <span>Assessment</span>
+                  <span>Cognitive Skills</span>
+                </div>
+                <h3 class="project-title">Internship Common Aptitude Test</h3>
+                <p class="project-desc">
+                  Participated in the standard ICAT screening, demonstrating proficiency in quantitative analysis, logic reasoning, and verbal interpretation.
+                </p>
+                <div class="project-links">
+                  <span class="badge neon-glow-purple">Certified (Mar 2026)</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Certificate Card 6: HackerRank Python Basic -->
+            <article class="project-card glassmorphic certificate-card" id="card-hackerrank-python" data-cert="/certificates/hackerrank-python.jpg" data-title="Python (Basic) — Certificate of Accomplishment | HackerRank">
+              <div class="card-glow"></div>
+              <div class="project-img-container">
+                <img src="/certificates/hackerrank-python.jpg" alt="HackerRank Python Certificate" class="project-thumbnail">
+                <div class="thumbnail-overlay">
+                  <span class="view-cert-btn">✨ View Certificate</span>
+                </div>
+              </div>
+              <div class="project-card-content">
+                <div class="project-tags">
+                  <span>Certification</span>
+                  <span>Python</span>
+                </div>
+                <h3 class="project-title">Python (Basic) — HackerRank</h3>
+                <p class="project-desc">
+                  Passed the HackerRank Python (Basic) skill certification test, demonstrating proficiency in Python fundamentals, data structures, and scripting logic.
+                </p>
+                <div class="project-links">
+                  <span class="badge neon-glow-purple">Certified · 17 May 2026</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project Card 7: Reliance Foundation AI-ML -->
+            <article class="project-card glassmorphic certificate-card" id="card-reliance-aiml" data-cert="/certificates/reliance-ai-ml.jpg" data-title="AI-Machine Learning Engineer Certificate Course — Reliance Foundation | Skill India | NSDC">
+              <div class="card-glow"></div>
+              <div class="project-img-container">
+                <img src="/certificates/reliance-ai-ml.jpg" alt="Reliance Foundation AI-ML Certificate" class="project-thumbnail">
+                <div class="thumbnail-overlay">
+                  <span class="view-cert-btn">✨ View Certificate</span>
+                </div>
+              </div>
+              <div class="project-card-content">
+                <div class="project-tags">
+                  <span>Certification</span>
+                  <span>AI &amp; ML</span>
+                </div>
+                <h3 class="project-title">AI-ML Engineer Certificate Course</h3>
+                <p class="project-desc">
+                  Completed a 150-hour online course on AI-Machine Learning Engineering offered by Reliance Foundation Skilling Academy through Skill India Digital Hub (NSDC). Validity authorized by Skill India.
+                </p>
+                <div class="project-links">
+                  <span class="badge neon-glow-blue">Completed · Mar 03, 2026 · 150 hrs</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Certificate Card 8: TATA Forage GenAI -->
+            <article class="project-card glassmorphic certificate-card" id="card-tata-forage" data-cert="/certificates/tata-forage-genai.jpg" data-title="GenAI Powered Data Analytics Job Simulation — TATA &amp; Forage">
+              <div class="card-glow"></div>
+              <div class="project-img-container">
+                <img src="/certificates/tata-forage-genai.jpg" alt="TATA Forage GenAI Certificate" class="project-thumbnail">
+                <div class="thumbnail-overlay">
+                  <span class="view-cert-btn">✨ View Certificate</span>
+                </div>
+              </div>
+              <div class="project-card-content">
+                <div class="project-tags">
+                  <span>Job Simulation</span>
+                  <span>GenAI</span>
+                </div>
+                <h3 class="project-title">GenAI Powered Data Analytics — TATA</h3>
+                <p class="project-desc">
+                  Completed TATA &amp; Forage's GenAI-powered analytics simulation: EDA &amp; risk profiling, AI delinquency prediction, business reporting, and AI-driven collections strategy implementation.
+                </p>
+                <div class="project-links">
+                  <span class="badge neon-glow-cyan">Completed · Jun 11, 2026</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section id="contact" class="contact-section scroll-reveal">
+        <div class="section-container">
+          <div class="section-header">
+            <span class="section-number">05.</span>
+            <h2 class="section-title">ESTABLISH CONNECTION</h2>
+            <div class="section-line"></div>
+          </div>
+
+          <!-- Social Links Row -->
+          <div class="social-links-row">
+            <a href="https://github.com/anujtiwari1427" target="_blank" rel="noopener noreferrer" class="social-link" id="github-link">
+              <span class="social-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </span>
+              <span class="social-label">GitHub</span>
+              <span class="social-handle">@anujtiwari1427</span>
+              <svg class="social-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+
+            <a href="https://www.linkedin.com/in/anuj-tiwari-99130a243/" target="_blank" rel="noopener noreferrer" class="social-link" id="linkedin-link">
+              <span class="social-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </span>
+              <span class="social-label">LinkedIn</span>
+              <span class="social-handle">anuj-tiwari-99130a243</span>
+              <svg class="social-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Contact Form — centered -->
+          <div class="contact-form-panel glassmorphic contact-form-solo">
+            <div class="card-glow"></div>
+            <h3>Send a Message</h3>
+            <form id="contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="form-name">Your Name</label>
+                  <input type="text" id="form-name" required placeholder="Jane Smith">
+                </div>
+                <div class="form-group">
+                  <label for="form-email">Email Address</label>
+                  <input type="email" id="form-email" required placeholder="jane@example.com">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="form-message">Message</label>
+                <textarea id="form-message" required rows="6" placeholder="Hello Anuj, I would like to collaborate on..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block" id="form-submit-btn">
+                <span>Send Message</span>
+                <div class="btn-glow-bar"></div>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="footer-container">
+          <p>&copy; 2026 Anuj Rajesh Tiwari. Designed & Developed for Data Science Excellence.</p>
+          <div class="footer-meta">
+            <span class="footer-badge neon-glow-cyan">System Status: Nominal</span>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+    <!-- Interactive Certificate Preview Modal -->
+    <div id="cert-modal" class="cert-modal">
+      <span class="modal-close" id="modal-close-btn">&times;</span>
+      <div class="modal-content-wrapper">
+        <img class="modal-image" id="modal-img" src="" alt="Certificate Preview">
+        <div class="modal-caption" id="modal-caption">Certificate Title</div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
