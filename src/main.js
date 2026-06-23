@@ -9,7 +9,7 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
 // 1. MULTILINGUAL PRELOADER
 (function initPreloader() {
-  const words = ['Hello', 'Bonjour', 'Ciao', 'Olà', 'やあ', 'Hallå', 'Guten tag', 'হ্যালো'];
+  const words = ['Hello', 'Bonjour', 'Ciao', 'Olà', 'やあ', 'Hallå', 'Guten tag', 'Namaste'];
   const preloader  = document.getElementById('preloader');
   const wordText   = document.getElementById('preloader-word-text');
   const wordEl     = document.getElementById('preloader-word');
