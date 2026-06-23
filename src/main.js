@@ -541,3 +541,81 @@ if (certModal && modalImg && modalCaption) {
     }
   });
 }
+
+// 10. 3D CURSOR TRAIL EFFECT
+(function initCursorEffect() {
+  // Skip on touch-only devices
+  if ('ontouchstart' in window && navigator.maxTouchPoints > 0 && !window.matchMedia('(hover: hover)').matches) return;
+
+  const glow = document.getElementById('cursor-glow');
+  const ring = document.getElementById('cursor-ring');
+  if (!glow || !ring) return;
+
+  let mouseX = -100, mouseY = -100;
+  let ringX = -100, ringY = -100;
+  let isVisible = false;
+
+  // Track mouse position
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // Show cursor on first move
+    if (!isVisible) {
+      isVisible = true;
+      glow.style.opacity = '1';
+      ring.style.opacity = '1';
+    }
+
+    // Inner glow follows instantly
+    glow.style.left = mouseX + 'px';
+    glow.style.top = mouseY + 'px';
+  });
+
+  // Hide when mouse leaves the window
+  document.addEventListener('mouseleave', () => {
+    glow.style.opacity = '0';
+    ring.style.opacity = '0';
+    isVisible = false;
+  });
+
+  document.addEventListener('mouseenter', () => {
+    glow.style.opacity = '1';
+    ring.style.opacity = '1';
+    isVisible = true;
+  });
+
+  // Outer ring follows with a smooth lag (3D depth effect)
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Expand ring on hover over interactive elements
+  const hoverTargets = document.querySelectorAll('a, button, .btn, .sidebar-nav-link, .certificate-card, .interest-tag, .mobile-toggle, .social-link');
+
+  hoverTargets.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.classList.add('cursor-hover');
+      glow.classList.add('cursor-hover');
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.classList.remove('cursor-hover');
+      glow.classList.remove('cursor-hover');
+    });
+  });
+
+  // Click pulse
+  document.addEventListener('mousedown', () => {
+    ring.classList.add('cursor-click');
+  });
+  document.addEventListener('mouseup', () => {
+    ring.classList.remove('cursor-click');
+  });
+})();

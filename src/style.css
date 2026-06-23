@@ -69,6 +69,64 @@ body {
 }
 
 /* ============================================
+   3D CURSOR EFFECT
+   ============================================ */
+#cursor-glow {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.25s ease, height 0.25s ease;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+
+/* Hover state — expand ring on interactive elements */
+#cursor-ring.cursor-hover {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+#cursor-glow.cursor-hover {
+  width: 6px;
+  height: 6px;
+}
+
+/* Click/tap pulse */
+#cursor-ring.cursor-click {
+  width: 32px;
+  height: 32px;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  #cursor-glow, #cursor-ring {
+    display: none !important;
+  }
+}
+
+/* ============================================
    WEBGL CANVAS
    ============================================ */
 #webgl-canvas {
