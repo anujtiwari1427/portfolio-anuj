@@ -1,5 +1,6 @@
 import './style.css';
 import { gsap } from 'gsap';
+import { drawSkillChart } from './charts.js';
 
 // Prevent browser from restoring scroll position on reload
 if ('scrollRestoration' in history) {
@@ -94,10 +95,10 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   function cycle() {
     if (index === words.length - 1) {
       // Last word shown — wait then exit
-      setTimeout(runExitSequence, 1000);
+      setTimeout(runExitSequence, 1200);
       return;
     }
-    const delay = index === 0 ? 1000 : 150;
+    const delay = index === 0 ? 1200 : 350;
     setTimeout(() => {
       index++;
       swapWord();
@@ -106,7 +107,7 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }
 
   // Kick off after initial word is visible
-  setTimeout(cycle, 1200);
+  setTimeout(cycle, 1500);
 })();
 
 function bootApp() {
@@ -129,13 +130,17 @@ function bootApp() {
     }, 500);
   });
 
-  import('./charts.js'); // pre-warm module
   initScrollReveal();
 
   // Update skill cloud hint for touch devices
   if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
     const hint = document.querySelector('.visualizer-hint');
     if (hint) hint.textContent = 'Tap & drag to rotate · Tap nodes to view stats';
+  }
+
+  // Start typewriter effect after loading completes
+  if (typeof startTypewriter === 'function') {
+    startTypewriter();
   }
 }
 
@@ -220,8 +225,10 @@ function typeEffect() {
 
   setTimeout(typeEffect, typeSpeed);
 }
-if (typewriterText) {
-  setTimeout(typeEffect, 2500); // Start after loading finishes
+function startTypewriter() {
+  if (typewriterText) {
+    typeEffect();
+  }
 }
 
 // 4. NAVIGATION & SIDEBAR CONTROLLER
