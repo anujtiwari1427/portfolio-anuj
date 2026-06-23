@@ -9,7 +9,7 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
 // 1. MULTILINGUAL PRELOADER
 (function initPreloader() {
-  const words = ['Hello', 'Bonjour', 'Ciao', 'Olà', 'やあ', 'Hallå', 'Guten tag', 'Namaste'];
+  const words = ['Hello', 'Bonjour', 'Ciao', 'Olà', 'やあ', 'Hallå', 'Guten tag', 'नमस्ते'];
   const preloader  = document.getElementById('preloader');
   const wordText   = document.getElementById('preloader-word-text');
   const wordEl     = document.getElementById('preloader-word');
@@ -131,6 +131,12 @@ function bootApp() {
 
   import('./charts.js'); // pre-warm module
   initScrollReveal();
+
+  // Update skill cloud hint for touch devices
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    const hint = document.querySelector('.visualizer-hint');
+    if (hint) hint.textContent = 'Tap & drag to rotate · Tap nodes to view stats';
+  }
 }
 
 
@@ -218,7 +224,6 @@ if (typewriterText) {
   setTimeout(typeEffect, 2500); // Start after loading finishes
 }
 
-// 4. NAVIGATION BAR CONTROLLER
 // 4. NAVIGATION & SIDEBAR CONTROLLER
 const sidebar = document.getElementById('sidebar');
 const menuToggle = document.getElementById('mobile-menu-toggle');
@@ -258,6 +263,7 @@ if (menuToggle && sidebar) {
     e.stopPropagation();
     sidebar.classList.toggle('sidebar-active');
     menuToggle.classList.toggle('active');
+    document.body.classList.toggle('sidebar-open');
     
     // Animate bars
     const bars = menuToggle.querySelectorAll('.bar');
@@ -277,6 +283,7 @@ if (menuToggle && sidebar) {
     link.addEventListener('click', () => {
       sidebar.classList.remove('sidebar-active');
       menuToggle.classList.remove('active');
+      document.body.classList.remove('sidebar-open');
       menuToggle.querySelectorAll('.bar').forEach(b => {
         b.style.transform = 'none';
         b.style.opacity = '1';
@@ -292,6 +299,7 @@ if (menuToggle && sidebar) {
         !menuToggle.contains(e.target)) {
       sidebar.classList.remove('sidebar-active');
       menuToggle.classList.remove('active');
+      document.body.classList.remove('sidebar-open');
       menuToggle.querySelectorAll('.bar').forEach(b => {
         b.style.transform = 'none';
         b.style.opacity = '1';
@@ -533,4 +541,3 @@ if (certModal && modalImg && modalCaption) {
     }
   });
 }
-
