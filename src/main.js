@@ -95,10 +95,10 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   function cycle() {
     if (index === words.length - 1) {
       // Last word shown — wait then exit
-      setTimeout(runExitSequence, 1200);
+      setTimeout(runExitSequence, 1000);
       return;
     }
-    const delay = index === 0 ? 1200 : 350;
+    const delay = index === 0 ? 1000 : 150;
     setTimeout(() => {
       index++;
       swapWord();
@@ -107,7 +107,7 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }
 
   // Kick off after initial word is visible
-  setTimeout(cycle, 1500);
+  setTimeout(cycle, 1200);
 })();
 
 function bootApp() {
