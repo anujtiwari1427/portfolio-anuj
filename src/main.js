@@ -8,6 +8,99 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
+// 0. WEB AUDIO API SYNTHESIZER FOR 3D SCI-FI SOUND FX
+class SoundFX {
+  constructor() {
+    this.ctx = null;
+    this.muted = false;
+  }
+
+  init() {
+    if (!this.ctx && typeof window !== 'undefined') {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) {
+        this.ctx = new AudioCtx();
+      }
+    }
+  }
+
+  playHover() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(440, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(880, this.ctx.currentTime + 0.05);
+
+    gain.gain.setValueAtTime(0.02, this.ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.05);
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    osc.start();
+    osc.stop(this.ctx.currentTime + 0.05);
+  }
+
+  playClick() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(200, this.ctx.currentTime + 0.1);
+
+    gain.gain.setValueAtTime(0.05, this.ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.1);
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    osc.start();
+    osc.stop(this.ctx.currentTime + 0.1);
+  }
+
+  toggleMute() {
+    this.muted = !this.muted;
+    return this.muted;
+  }
+}
+
+const sound = new SoundFX();
+
+// Sound Toggle Button Handler
+(function initSoundButton() {
+  const soundBtn = document.getElementById('sound-toggle-btn');
+  if (!soundBtn) return;
+
+  const soundIcon = document.getElementById('sound-icon');
+  const soundLabel = soundBtn.querySelector('.sound-label');
+
+  soundBtn.addEventListener('click', () => {
+    const isMuted = sound.toggleMute();
+    if (isMuted) {
+      soundBtn.classList.add('muted');
+      if (soundIcon) soundIcon.textContent = '🔇';
+      if (soundLabel) soundLabel.textContent = 'SOUND: OFF';
+    } else {
+      soundBtn.classList.remove('muted');
+      if (soundIcon) soundIcon.textContent = '🔊';
+      if (soundLabel) soundLabel.textContent = 'SOUND: ON';
+      sound.playClick();
+    }
+  });
+})();
+
 // 1. MULTILINGUAL PRELOADER
 (function initPreloader() {
   const words = ['Hello', 'Bonjour', 'Ciao', 'Olà', 'やあ', 'Hallå', 'Guten tag', 'नमस्ते'];
@@ -16,10 +109,11 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   const wordEl     = document.getElementById('preloader-word');
   const curvePath  = document.getElementById('preloader-curve');
 
+  if (!preloader || !wordText || !wordEl || !curvePath) return;
+
   const W = window.innerWidth;
   const H = window.innerHeight;
 
-  // Set initial SVG path — bellied bottom (like the React component)
   const initialD = `M0 0 L${W} 0 L${W} ${H} Q${W/2} ${H+300} 0 ${H} L0 0`;
   const targetD  = `M0 0 L${W} 0 L${W} ${H} Q${W/2} ${H} 0 ${H} L0 0`;
   curvePath.setAttribute('d', initialD);
@@ -27,7 +121,6 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   let index = 0;
 
   function swapWord() {
-    // Fade out current word
     wordEl.style.animation = 'none';
     wordEl.style.opacity = '0';
     wordEl.style.transform = 'translateY(-6px)';
@@ -35,7 +128,6 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
     setTimeout(() => {
       wordText.textContent = words[index];
-      // Fade in new word
       wordEl.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
       wordEl.style.opacity = '0.85';
       wordEl.style.transform = 'translateY(0)';
@@ -43,15 +135,10 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }
 
   function runExitSequence() {
-    // 1. Flatten the SVG curve (0.7s)
     curvePath.style.transition = 'd 0.7s cubic-bezier(0.76,0,0.24,1)';
-    // Use GSAP-less morphing via CSS custom property trick — do it in JS
     animateCurve(initialD, targetD, 700, () => {
-      // 2. Slide the whole preloader up (0.8s delay 0.2s = matches component)
       setTimeout(() => {
         preloader.classList.add('exiting');
-
-        // 3. After slide-up, remove and boot app
         setTimeout(() => {
           preloader.style.display = 'none';
           bootApp();
@@ -60,7 +147,6 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     });
   }
 
-  // Lightweight path d interpolator
   function animateCurve(from, to, duration, onDone) {
     const start = performance.now();
     const fromNums = from.match(/-?\d+(\.\d+)?/g).map(Number);
@@ -68,14 +154,11 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
     function step(now) {
       const t = Math.min((now - start) / duration, 1);
-      // ease: cubic-bezier(0.76,0,0.24,1) approximated
       const e = easeInOutCubic(t);
       const interpolated = fromNums.map((f, i) => f + (toNums[i] - f) * e);
 
-      // Rebuild the path string with interpolated numbers
-      let rebuilt = from;
       let counter = 0;
-      rebuilt = from.replace(/-?\d+(\.\d+)?/g, () => {
+      const rebuilt = from.replace(/-?\d+(\.\d+)?/g, () => {
         const val = interpolated[counter++];
         return Math.round(val * 100) / 100;
       });
@@ -91,10 +174,8 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
 
-  // Start cycling words
   function cycle() {
     if (index === words.length - 1) {
-      // Last word shown — wait then exit
       setTimeout(runExitSequence, 1000);
       return;
     }
@@ -106,24 +187,23 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }, delay);
   }
 
-  // Kick off after initial word is visible
   setTimeout(cycle, 1200);
 })();
 
 function bootApp() {
-  // Always start at the hero/intro section
   window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   const heroSection = document.getElementById('hero');
   if (heroSection) heroSection.scrollIntoView({ behavior: 'instant', block: 'start' });
 
-  // Initialize 3D Engine after preloader exits
+  // Boot 3D Engine & Canvas visualizer
   import('./three-bg.js').then(({ initBackground, initSkillCloud }) => {
     initBackground();
     initSkillCloud('skills-canvas-holder', handleSkillSelection);
     setTimeout(() => {
       const defaultSkill = {
-        name: 'Data Analysis',
-        desc: 'Parsing logs, cleaning data, conducting EDA, and exporting data reports.',
+        name: 'Python',
+        category: 'Data Science',
+        desc: 'Data analytics, model pipelines, scripting, NumPy, Pandas, Scikit-Learn.',
         val: 0.85
       };
       handleSkillSelection(defaultSkill);
@@ -131,69 +211,115 @@ function bootApp() {
   });
 
   initScrollReveal();
+  initTiltEffect();
+  animateHeroStats();
 
-  // Update skill cloud hint for touch devices
   if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
     const hint = document.querySelector('.visualizer-hint');
-    if (hint) hint.textContent = 'Tap & drag to rotate · Tap nodes to view stats';
+    if (hint) hint.textContent = 'Tap & drag to rotate 3D sphere · Tap nodes for stats';
   }
 
-  // Start typewriter effect after loading completes
   if (typeof startTypewriter === 'function') {
     startTypewriter();
   }
 }
 
+// 2. 3D CARD TILT TRACKING
+function initTiltEffect() {
+  const tiltCards = document.querySelectorAll('[data-tilt]');
 
-// 2. SKILL SELECTION CONTROLLER
+  tiltCards.forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -10;
+      const rotateY = ((x - centerX) / centerX) * 10;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    });
+
+    card.addEventListener('mouseenter', () => {
+      sound.playHover();
+    });
+  });
+}
+
+// 3. ANIMATED HERO STAT COUNTERS
+function animateHeroStats() {
+  const statNums = document.querySelectorAll('.stat-num');
+
+  statNums.forEach((stat) => {
+    const target = parseInt(stat.getAttribute('data-count'), 10) || 0;
+    let current = 0;
+    const increment = Math.max(1, Math.ceil(target / 40));
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        stat.textContent = target;
+        clearInterval(timer);
+      } else {
+        stat.textContent = current;
+      }
+    }, 30);
+  });
+}
+
+// 4. SKILL SELECTION CONTROLLER
 function handleSkillSelection(skill) {
+  sound.playClick();
   const titleEl = document.getElementById('selected-skill-title');
   const descEl = document.getElementById('selected-skill-desc');
   const progressEl = document.getElementById('selected-skill-progress');
-  const frequencyEl = document.getElementById('selected-skill-frequency');
+  const categoryEl = document.getElementById('selected-skill-category');
 
-  if (!titleEl || !descEl || !progressEl || !frequencyEl) return;
+  if (!titleEl || !descEl || !progressEl) return;
 
-  // Text details update
   titleEl.textContent = skill.name;
   descEl.textContent = skill.desc;
 
-  // Mock proficiencies map
-  const skillValues = {
-    'Python': { pct: 85, freq: 'DAILY' },
-    'SQL': { pct: 80, freq: 'DAILY' },
-    'Web Dev': { pct: 75, freq: 'WEEKLY' },
-    'Graphic Design': { pct: 70, freq: 'WEEKLY' },
-    'Data Analysis': { pct: 85, freq: 'DAILY' },
-    'Excel': { pct: 90, freq: 'DAILY' },
-    'Google Workspace': { pct: 80, freq: 'DAILY' },
-    'Troubleshooting': { pct: 75, freq: 'AS_NEEDED' },
-    'Online Teaching': { pct: 80, freq: 'WEEKLY' },
-    'Digital Literacy': { pct: 85, freq: 'DAILY' }
+  const skillDataMap = {
+    'Python': { pct: 90, cat: 'Data Science' },
+    'SQL': { pct: 85, cat: 'Data Science' },
+    'Machine Learning': { pct: 80, cat: 'AI / ML' },
+    'Web Dev': { pct: 85, cat: 'Frontend 3D' },
+    'Three.js': { pct: 80, cat: 'WebGL Graphics' },
+    'Data Visualization': { pct: 88, cat: 'Analytics' },
+    'Graphic Design': { pct: 75, cat: 'UI / UX Design' },
+    'Git & GitHub': { pct: 82, cat: 'Version Control' },
+    'Excel / Sheets': { pct: 90, cat: 'Spreadsheets' },
+    'Problem Solving': { pct: 88, cat: 'Core Logic' }
   };
 
-  const currentSkillData = skillValues[skill.name] || { pct: 75, freq: 'N/A' };
-  
-  // Animate progress bar fill
+  const currentData = skillDataMap[skill.name] || { pct: 80, cat: skill.category || 'Data Science' };
+
   progressEl.style.width = '0%';
   setTimeout(() => {
-    progressEl.style.width = `${currentSkillData.pct}%`;
+    progressEl.style.width = `${currentData.pct}%`;
   }, 50);
 
-  frequencyEl.textContent = currentSkillData.freq;
+  if (categoryEl) {
+    categoryEl.textContent = currentData.cat;
+  }
 
-  // Draw the custom orbital canvas chart
   drawSkillChart('skill-chart-canvas', skill);
 }
 
-// 3. TYPEWRITER EFFECT
+// 5. TYPEWRITER EFFECT
 const typewriterText = document.getElementById('typewriter-text');
 const phrases = [
   'Data Science Student',
-  'Aspiring Educator',
-  'Problem Solver',
-  'Web Developer',
-  'Graphic Designer'
+  '3D Web Graphics Developer',
+  'AI & Data Analyst',
+  'Problem Solver & Educator'
 ];
 let phraseIdx = 0;
 let charIdx = 0;
@@ -201,26 +327,26 @@ let isDeleting = false;
 let typeSpeed = 100;
 
 function typeEffect() {
+  if (!typewriterText) return;
   const currentPhrase = phrases[phraseIdx];
   
   if (isDeleting) {
     typewriterText.textContent = currentPhrase.substring(0, charIdx - 1);
     charIdx--;
-    typeSpeed = 50; // delete speed is faster
+    typeSpeed = 45;
   } else {
     typewriterText.textContent = currentPhrase.substring(0, charIdx + 1);
     charIdx++;
-    typeSpeed = 100; // standard typing speed
+    typeSpeed = 90;
   }
 
-  // Typewriting completed, pause before deleting
   if (!isDeleting && charIdx === currentPhrase.length) {
     isDeleting = true;
-    typeSpeed = 2000; // Pause at end of word
+    typeSpeed = 2000;
   } else if (isDeleting && charIdx === 0) {
     isDeleting = false;
     phraseIdx = (phraseIdx + 1) % phrases.length;
-    typeSpeed = 500; // Pause before typing next word
+    typeSpeed = 400;
   }
 
   setTimeout(typeEffect, typeSpeed);
@@ -231,13 +357,12 @@ function startTypewriter() {
   }
 }
 
-// 4. NAVIGATION & SIDEBAR CONTROLLER
+// 6. NAVIGATION & SIDEBAR CONTROLLER
 const sidebar = document.getElementById('sidebar');
 const menuToggle = document.getElementById('mobile-menu-toggle');
 const navLinks = document.querySelectorAll('.sidebar-nav-link');
 const sections = document.querySelectorAll('section');
 
-// Draw scroll progress percentage and spy scroll intersections
 window.addEventListener('scroll', () => {
   const scrollProgress = document.getElementById('scroll-progress');
   const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -246,9 +371,8 @@ window.addEventListener('scroll', () => {
     scrollProgress.style.width = `${percentage}%`;
   }
 
-  // Set active link on scroll intersections
   let currentActive = 'hero';
-  sections.forEach(sec => {
+  sections.forEach((sec) => {
     const top = sec.offsetTop - 150;
     const height = sec.offsetHeight;
     if (window.scrollY >= top && window.scrollY < top + height) {
@@ -256,7 +380,7 @@ window.addEventListener('scroll', () => {
     }
   });
 
-  navLinks.forEach(link => {
+  navLinks.forEach((link) => {
     link.classList.remove('active');
     if (link.getAttribute('href') === `#${currentActive}`) {
       link.classList.add('active');
@@ -264,238 +388,40 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// Mobile Sidebar Hamburger Toggle
 if (menuToggle && sidebar) {
-  menuToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    sidebar.classList.toggle('sidebar-active');
+  menuToggle.addEventListener('click', () => {
     menuToggle.classList.toggle('active');
-    document.body.classList.toggle('sidebar-open');
-    
-    // Animate bars
-    const bars = menuToggle.querySelectorAll('.bar');
-    if (menuToggle.classList.contains('active')) {
-      bars[0].style.transform = 'rotate(-45deg) translate(-5px, 5px)';
-      bars[1].style.opacity = '0';
-      bars[2].style.transform = 'rotate(45deg) translate(-5px, -5px)';
-    } else {
-      bars[0].style.transform = 'none';
-      bars[1].style.opacity = '1';
-      bars[2].style.transform = 'none';
-    }
+    sidebar.classList.toggle('active');
   });
 
-  // Close sidebar when clicking a link
-  navLinks.forEach(link => {
+  navLinks.forEach((link) => {
     link.addEventListener('click', () => {
-      sidebar.classList.remove('sidebar-active');
+      sound.playClick();
       menuToggle.classList.remove('active');
-      document.body.classList.remove('sidebar-open');
-      menuToggle.querySelectorAll('.bar').forEach(b => {
-        b.style.transform = 'none';
-        b.style.opacity = '1';
-      });
+      sidebar.classList.remove('active');
     });
-  });
-
-  // Close sidebar when clicking outside on mobile
-  document.addEventListener('click', (e) => {
-    if (window.innerWidth <= 1024 && 
-        sidebar.classList.contains('sidebar-active') && 
-        !sidebar.contains(e.target) && 
-        !menuToggle.contains(e.target)) {
-      sidebar.classList.remove('sidebar-active');
-      menuToggle.classList.remove('active');
-      document.body.classList.remove('sidebar-open');
-      menuToggle.querySelectorAll('.bar').forEach(b => {
-        b.style.transform = 'none';
-        b.style.opacity = '1';
-      });
-    }
   });
 }
 
-// 5. SCROLL REVEAL (INTERSECTION OBSERVER)
+// 7. SCROLL REVEAL OBSERVER
 function initScrollReveal() {
-  const revealCallback = (entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        // If it is timeline cards, trigger cascading reveals
-        const items = entry.target.querySelectorAll('.scroll-reveal-item');
-        items.forEach((item, idx) => {
-          setTimeout(() => {
-            item.classList.add('revealed');
-          }, idx * 200);
+  const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-item');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
         });
-        observer.unobserve(entry.target);
-      }
-    });
-  };
+      },
+      { threshold: 0.15 }
+    );
 
-  const observer = new IntersectionObserver(revealCallback, {
-    root: null,
-    threshold: 0.15
-  });
-
-  document.querySelectorAll('.scroll-reveal').forEach(el => {
-    observer.observe(el);
-  });
-}
-
-// 6. RETRO TERMINAL SHELL INTERACTIVE CLIENT
-const terminalInput = document.getElementById('terminal-input-box');
-const terminalHistory = document.getElementById('terminal-history-list');
-const terminalScreen = document.getElementById('terminal-screen');
-
-if (terminalInput) {
-  terminalInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      const input = terminalInput.value.trim();
-      terminalInput.value = '';
-      if (input !== '') {
-        processCommand(input);
-      }
-    }
-  });
-
-  // Keep focus on input box when clicking anywhere in terminal body
-  const terminalInterface = document.getElementById('terminal-interface');
-  if (terminalInterface) {
-    terminalInterface.addEventListener('click', () => {
-      terminalInput.focus();
-    });
+    revealElements.forEach((el) => observer.observe(el));
+  } else {
+    revealElements.forEach((el) => el.classList.add('revealed'));
   }
-}
-
-function printToTerminal(text, type = '') {
-  const line = document.createElement('p');
-  line.className = `terminal-text ${type}`;
-  line.innerHTML = text;
-  terminalHistory.appendChild(line);
-  // Auto-scroll terminal body to bottom
-  terminalScreen.scrollTop = terminalScreen.scrollHeight;
-}
-
-function processCommand(cmd) {
-  const cleanCmd = cmd.toLowerCase().trim();
-  printToTerminal(`anuj-nexus@portfolio:~$ ${cmd}`, 'text-accent');
-
-  switch (cleanCmd) {
-    case 'help':
-      printToTerminal('Available commands:');
-      printToTerminal('  <span class="text-accent">about</span>          - Print Anuj\'s professional summary');
-      printToTerminal('  <span class="text-accent">skills</span>         - Retrieve detailed skill proficiency data');
-      printToTerminal('  <span class="text-accent">education</span>      - Read academic credentials');
-      printToTerminal('  <span class="text-accent">contact</span>        - Get digital contact channels');
-      printToTerminal('  <span class="text-accent">download-cv</span>    - Fetch resume document');
-      printToTerminal('  <span class="text-accent">clear</span>          - Clear terminal logs');
-      break;
-    
-    case 'about':
-      printToTerminal('SYSTEM RETRIEVED SUMMARY:');
-      printToTerminal('Dedicated aspiring educator & Bachelor of Science in Data Science student at the University of Mumbai.');
-      printToTerminal('Skilled in Python scripting, SQL query engines, Excel analytical models, and front-end development.');
-      break;
-
-    case 'skills':
-      printToTerminal('RETRIEVING SKILL STACK DATAFRAME:');
-      printToTerminal('+--------------------+-------------+');
-      printToTerminal('| Skill              | Level       |');
-      printToTerminal('+--------------------+-------------+');
-      printToTerminal('| Python Scripting   | 85% [Daily] |');
-      printToTerminal('| SQL Query Design   | 80% [Daily] |');
-      printToTerminal('| Excel Pivot Models | 90% [Daily] |');
-      printToTerminal('| Web Development    | 75% [Weekly]|');
-      printToTerminal('| Graphic Design     | 70% [Weekly]|');
-      printToTerminal('+--------------------+-------------+');
-      break;
-
-    case 'education':
-      printToTerminal('FETCHING ACADEMIC RECORDS:');
-      printToTerminal('- B.Sc. Data Science | Mumbai University | 2025 - Present (Pursuing)');
-      printToTerminal('- HSC Science        | HSC Board         | 2024 (Result: 64.33%)');
-      printToTerminal('- SSC General        | SSC Board         | 2022 (Result: 85.60%)');
-      break;
-
-    case 'contact':
-      printToTerminal('CONTACT ENDPOINTS:');
-      printToTerminal('- Mobile: +91 7710916655');
-      printToTerminal('- Email: anujat9987@gmail.com');
-      printToTerminal('- Address: Kalyan, Maharashtra, India');
-      break;
-
-    case 'download-cv':
-      printToTerminal('Connecting to document repository...');
-      printToTerminal('>> CV_Anuj_Tiwari.pdf: Request accepted.');
-      printToTerminal('>> Generating dynamic transmission packet...');
-      printToTerminal('<span class="pulse-text">SUCCESS: Downloading file CV_Anuj_Tiwari.pdf ...</span>');
-      
-      // Simulate download link
-      const link = document.createElement('a');
-      link.href = 'mailto:anujat9987@gmail.com?subject=Requesting Anuj Resume';
-      link.target = '_blank';
-      link.click();
-      break;
-
-    case 'clear':
-      terminalHistory.innerHTML = '';
-      break;
-
-    default:
-      printToTerminal(`bash: command not found: ${cmd}. Type 'help' to review directory functions.`, 'text-dim');
-  }
-}
-
-// 7. CONTACT FORM SUBMISSION HOOK
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById('form-name').value;
-    const email = document.getElementById('form-email').value;
-    const message = document.getElementById('form-message').value;
-
-    // Reset Form Fields
-    contactForm.reset();
-
-    // Scroll to and highlight terminal
-    const terminalSec = document.getElementById('terminal-interface');
-    if (terminalSec) {
-      terminalSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      
-      // Flash glowing border on terminal to grab attention
-      terminalSec.style.borderColor = '#06b6d4';
-      terminalSec.style.boxShadow = '0 0 30px rgba(6, 182, 212, 0.4)';
-      setTimeout(() => {
-        terminalSec.style.borderColor = '';
-        terminalSec.style.boxShadow = '';
-      }, 2000);
-    }
-
-    // Run sending logs inside terminal
-    setTimeout(() => {
-      printToTerminal('>> INCOMING MESSAGE QUERY TRANSMISSION RECEIVED...', 'text-accent');
-      
-      setTimeout(() => {
-        printToTerminal(`>> Sender: <span class="text-accent">${name}</span>`);
-        printToTerminal(`>> Endpoint: <span class="text-accent">${email}</span>`);
-        printToTerminal(`>> Payload size: ${message.length} bytes`);
-      }, 500);
-
-      setTimeout(() => {
-        printToTerminal('>> Establishing secure websocket socket to DB...');
-        printToTerminal('>> Query compiled: INSERT INTO messages (sender, endpoint, body) VALUES ($1, $2, $3)...');
-      }, 1200);
-
-      setTimeout(() => {
-        printToTerminal('<span class="pulse-text">TRANSMISSION OK: Response 200 SUCCESS</span>');
-        printToTerminal('>> Message forwarded to Anuj. Thank you for connecting!');
-      }, 2200);
-
-    }, 600);
-  });
 }
 
 // 8. CERTIFICATE PREVIEW MODAL CONTROLLER
@@ -506,8 +432,9 @@ const modalCloseBtn = document.getElementById('modal-close-btn');
 const certCards = document.querySelectorAll('.certificate-card');
 
 if (certModal && modalImg && modalCaption) {
-  certCards.forEach(card => {
+  certCards.forEach((card) => {
     card.addEventListener('click', () => {
+      sound.playClick();
       const certSrc = card.getAttribute('data-cert');
       const certTitle = card.getAttribute('data-title');
       
@@ -515,14 +442,13 @@ if (certModal && modalImg && modalCaption) {
       modalCaption.textContent = certTitle;
       
       certModal.classList.add('active');
-      document.body.style.overflow = 'hidden'; // prevent scrolling behind modal
+      document.body.style.overflow = 'hidden';
     });
   });
 
   const closeModal = () => {
     certModal.classList.remove('active');
     document.body.style.overflow = '';
-    // Clear image source after transition to prevent layout flickering on next open
     setTimeout(() => {
       if (!certModal.classList.contains('active')) {
         modalImg.src = '';
@@ -534,14 +460,12 @@ if (certModal && modalImg && modalCaption) {
     modalCloseBtn.addEventListener('click', closeModal);
   }
 
-  // Close modal when clicking on the backdrop
   certModal.addEventListener('click', (e) => {
     if (e.target === certModal) {
       closeModal();
     }
   });
 
-  // Close modal on Escape key press
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && certModal.classList.contains('active')) {
       closeModal();
@@ -549,9 +473,8 @@ if (certModal && modalImg && modalCaption) {
   });
 }
 
-// 10. 3D CURSOR TRAIL EFFECT
+// 9. 3D CURSOR TRAIL EFFECT
 (function initCursorEffect() {
-  // Skip on touch-only devices
   if ('ontouchstart' in window && navigator.maxTouchPoints > 0 && !window.matchMedia('(hover: hover)').matches) return;
 
   const glow = document.getElementById('cursor-glow');
@@ -562,24 +485,20 @@ if (certModal && modalImg && modalCaption) {
   let ringX = -100, ringY = -100;
   let isVisible = false;
 
-  // Track mouse position
   document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
 
-    // Show cursor on first move
     if (!isVisible) {
       isVisible = true;
       glow.style.opacity = '1';
       ring.style.opacity = '1';
     }
 
-    // Inner glow follows instantly
     glow.style.left = mouseX + 'px';
     glow.style.top = mouseY + 'px';
   });
 
-  // Hide when mouse leaves the window
   document.addEventListener('mouseleave', () => {
     glow.style.opacity = '0';
     ring.style.opacity = '0';
@@ -592,7 +511,6 @@ if (certModal && modalImg && modalCaption) {
     isVisible = true;
   });
 
-  // Outer ring follows with a smooth lag (3D depth effect)
   function animateRing() {
     ringX += (mouseX - ringX) * 0.12;
     ringY += (mouseY - ringY) * 0.12;
@@ -604,11 +522,11 @@ if (certModal && modalImg && modalCaption) {
   }
   animateRing();
 
-  // Expand ring on hover over interactive elements
-  const hoverTargets = document.querySelectorAll('a, button, .btn, .sidebar-nav-link, .certificate-card, .interest-tag, .mobile-toggle, .social-link');
+  const hoverTargets = document.querySelectorAll('a, button, .btn, .sidebar-nav-link, .certificate-card, .interest-tag, .mobile-toggle, .social-link, .tilt-card');
 
-  hoverTargets.forEach(el => {
+  hoverTargets.forEach((el) => {
     el.addEventListener('mouseenter', () => {
+      sound.playHover();
       ring.classList.add('cursor-hover');
       glow.classList.add('cursor-hover');
     });
@@ -618,7 +536,6 @@ if (certModal && modalImg && modalCaption) {
     });
   });
 
-  // Click pulse
   document.addEventListener('mousedown', () => {
     ring.classList.add('cursor-click');
   });
