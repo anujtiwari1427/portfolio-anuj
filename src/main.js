@@ -12,7 +12,7 @@ window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 class SoundFX {
   constructor() {
     this.ctx = null;
-    this.muted = false;
+    this.muted = true;
   }
 
   init() {
@@ -316,10 +316,10 @@ function handleSkillSelection(skill) {
 // 5. TYPEWRITER EFFECT
 const typewriterText = document.getElementById('typewriter-text');
 const phrases = [
-  'Data Science Student',
-  '3D Web Graphics Developer',
-  'AI & Data Analyst',
-  'Problem Solver & Educator'
+  'B.Sc. Data Science Student',
+  'Full-Stack & 3D Web Developer',
+  'Machine Learning Practitioner',
+  'Data Analytics Specialist'
 ];
 let phraseIdx = 0;
 let charIdx = 0;

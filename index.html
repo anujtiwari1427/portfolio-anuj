@@ -4,27 +4,27 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Anuj Tiwari - Interactive 3D Data Science & Web Engineering Portfolio. Neural networks, 3D WebGL scenes, database queries, and interactive visualizers." />
-    <meta name="keywords" content="Anuj Tiwari, 3D Portfolio, Data Science, Three.js, WebGL, Python, SQL, Mumbai University" />
-    <title>Anuj Rajesh Tiwari | Interactive 3D Portfolio & Nexus</title>
+    <meta name="description" content="Anuj Tiwari - Data Science & Web Engineering Portfolio. Machine learning pipelines, 3D WebGL graphics, database queries, and interactive visual analytics." />
+    <meta name="keywords" content="Anuj Tiwari, Data Science, Portfolio, Three.js, WebGL, Python, SQL, Mumbai University" />
+    <title>Anuj Rajesh Tiwari | Data Science & Web Engineering</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   </head>
   <body>
     <!-- 3D WebGL Canvas Background -->
     <canvas id="webgl-canvas"></canvas>
 
-    <!-- Interactive 3D Glowing Cursor -->
+    <!-- Refined 3D Glow Cursor -->
     <div id="cursor-glow"></div>
     <div id="cursor-ring"></div>
     
-    <!-- Top Floating Sound FX & Ambient Audio Toggle -->
-    <button id="sound-toggle-btn" class="sound-toggle-btn" aria-label="Toggle Sound Effects">
-      <span id="sound-icon">🔊</span>
-      <span class="sound-label">SOUND: ON</span>
+    <!-- Sound Toggle -->
+    <button id="sound-toggle-btn" class="sound-toggle-btn muted" aria-label="Toggle Sound Effects">
+      <span id="sound-icon">🔇</span>
+      <span class="sound-label">SOUND: OFF</span>
     </button>
 
     <!-- Scroll Progress Bar -->
@@ -42,7 +42,7 @@
     </div>
 
     <div class="portfolio-layout">
-      <!-- Mobile Top Navbar -->
+      <!-- Mobile Header -->
       <header class="mobile-header">
         <div class="logo">
           <a href="#hero">
@@ -56,34 +56,34 @@
         </div>
       </header>
 
-      <!-- Glassmorphic Sidebar -->
+      <!-- Sidebar Navigation -->
       <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
           <div class="sidebar-avatar">
             <img src="/src/assets/profile.jpg" alt="Anuj Rajesh Tiwari">
           </div>
           <h2 class="sidebar-name">ANUJ R. TIWARI</h2>
-          <p class="sidebar-subtitle">Data Science &amp; 3D Web Dev</p>
+          <p class="sidebar-subtitle">Data Science &amp; Web Dev</p>
         </div>
 
         <nav class="sidebar-nav">
           <ul class="sidebar-nav-list">
             <li><a href="#hero" class="sidebar-nav-link active" id="nav-hero-btn"><span class="nav-num">00.</span> Home</a></li>
             <li><a href="#about" class="sidebar-nav-link" id="nav-about-btn"><span class="nav-num">01.</span> About</a></li>
-            <li><a href="#skills" class="sidebar-nav-link" id="nav-skills-btn"><span class="nav-num">02.</span> 3D Matrix</a></li>
+            <li><a href="#skills" class="sidebar-nav-link" id="nav-skills-btn"><span class="nav-num">02.</span> Skills</a></li>
             <li><a href="#education" class="sidebar-nav-link" id="nav-education-btn"><span class="nav-num">03.</span> Education</a></li>
-            <li><a href="#projects" class="sidebar-nav-link" id="nav-projects-btn"><span class="nav-num">04.</span> Nexus</a></li>
+            <li><a href="#projects" class="sidebar-nav-link" id="nav-projects-btn"><span class="nav-num">04.</span> Projects</a></li>
             <li><a href="#certificates" class="sidebar-nav-link" id="nav-certificates-btn"><span class="nav-num">05.</span> Credentials</a></li>
-            <li><a href="#contact" class="sidebar-nav-link" id="nav-contact-btn"><span class="nav-num">06.</span> Connection</a></li>
+            <li><a href="#contact" class="sidebar-nav-link" id="nav-contact-btn"><span class="nav-num">06.</span> Contact</a></li>
           </ul>
         </nav>
 
         <div class="sidebar-footer">
           <div class="sidebar-db-record">
-            <h4 class="db-record-title">NEXUS DB RECORD</h4>
+            <h4 class="db-record-title">PROFILE INFORMATION</h4>
             <ul class="db-details">
               <li><span class="key">location:</span> <span class="val">Kalyan, MH, IN</span></li>
-              <li><span class="key">status:</span> <span class="val pulse-text">ACTIVE_STUDENT</span></li>
+              <li><span class="key">status:</span> <span class="val pulse-text">OPEN_TO_WORK</span></li>
               <li><span class="key">email:</span> <span class="val link-val"><a href="mailto:anujat9987@gmail.com" id="sidebar-email-link">anujat9987@gmail.com</a></span></li>
               <li><span class="key">phone:</span> <span class="val link-val"><a href="tel:+917710916655" id="sidebar-phone-link">+91 7710916655</a></span></li>
             </ul>
@@ -91,29 +91,29 @@
         </div>
       </aside>
 
-      <!-- Main Content Viewport -->
+      <!-- Main Content Area -->
       <main class="main-content">
         <!-- HERO SECTION -->
         <section id="hero" class="hero-section">
           <div class="hero-content">
-            <div class="badge neon-glow-cyan">INTERACTIVE 3D DATA SCIENCE &amp; WEB DEV</div>
+            <div class="badge neon-glow-cyan">DATA SCIENCE &amp; SOFTWARE ENGINEERING</div>
             <h1 class="hero-title">ANUJ R. TIWARI</h1>
             <h2 class="hero-subtitle">
               <span id="typewriter-text"></span><span class="cursor-blink">|</span>
             </h2>
             <p class="hero-desc">
-              Pursuing Bachelor of Science in Data Science at the University of Mumbai. Combining high-performance Three.js 3D web engineering, machine learning pipelines, and database optimization.
+              Pursuing Bachelor of Science in Data Science at the University of Mumbai. Building high-performance 3D web applications, machine learning workflows, and data-driven solutions.
             </p>
             <div class="hero-actions">
-              <a href="#skills" class="btn btn-primary" id="explore-skills-btn">Explore 3D Matrix</a>
+              <a href="#skills" class="btn btn-primary" id="explore-skills-btn">Explore Skills</a>
               <a href="#projects" class="btn btn-secondary" id="direct-projects-btn">View Projects</a>
             </div>
 
-            <!-- Interactive 3D Stats Counter Strip -->
+            <!-- Stats Counter Strip -->
             <div class="hero-stats-strip">
               <div class="stat-item glassmorphic">
                 <span class="stat-num" data-count="3">0</span><span class="stat-plus">+</span>
-                <span class="stat-label">3D Web Apps</span>
+                <span class="stat-label">Web Applications</span>
               </div>
               <div class="stat-item glassmorphic">
                 <span class="stat-num" data-count="150">0</span><span class="stat-plus">+</span>
@@ -127,7 +127,7 @@
           </div>
 
           <div class="scroll-down-indicator" id="scroll-indicator">
-            <span>EXPLORE 3D SPACE</span>
+            <span>SCROLL TO EXPLORE</span>
             <div class="mouse-icon">
               <div class="wheel"></div>
             </div>
@@ -148,15 +148,15 @@
                 <div class="card-glow"></div>
                 <h3>Professional Summary</h3>
                 <p>
-                  Dedicated and enthusiastic aspiring educator and developer currently pursuing a Bachelor of Science in Data Science from the University of Mumbai. Possesses strong communication, analytical modeling, and 3D web development capabilities. Skilled in Python, SQL, Three.js, React, and Graphic Designing, enabling the creation of immersive data-driven interfaces.
+                  Dedicated developer and student currently pursuing a Bachelor of Science in Data Science at the University of Mumbai. Skilled in Python, SQL, Web Development (HTML/CSS/JS/Three.js), and Graphic Design. Combining analytical thinking with modern interactive web technology to build intuitive applications and data visualizers.
                 </p>
                 
                 <div class="interests-container">
                   <h4>Core Interests</h4>
                   <div class="interests-tags">
-                    <span class="interest-tag"><span class="icon">♟️</span> Chess Master</span>
+                    <span class="interest-tag"><span class="icon">♟️</span> Chess</span>
                     <span class="interest-tag"><span class="icon">🌐</span> 3D Web Graphics</span>
-                    <span class="interest-tag"><span class="icon">📰</span> AI &amp; Business Intelligence</span>
+                    <span class="interest-tag"><span class="icon">🤖</span> AI &amp; Analytics</span>
                     <span class="interest-tag"><span class="icon">📊</span> Data Visualization</span>
                   </div>
                 </div>
@@ -164,10 +164,10 @@
 
               <div class="about-details glassmorphic tilt-card" data-tilt>
                 <div class="card-glow"></div>
-                <h3>Nexus Database Record</h3>
+                <h3>Personal Details</h3>
                 <ul class="db-details">
                   <li><span class="key">location:</span> <span class="val">Kalyan, Maharashtra, IN</span></li>
-                  <li><span class="key">dob:</span> <span class="val">14 / 05 / 2007</span></li>
+                  <li><span class="key">degree:</span> <span class="val">B.Sc. Data Science</span></li>
                   <li><span class="key">languages:</span> <span class="val">English, Hindi, Marathi</span></li>
                   <li><span class="key">status:</span> <span class="val pulse-text">ACTIVE_STUDENT</span></li>
                   <li><span class="key">email:</span> <span class="val link-val"><a href="mailto:anujat9987@gmail.com" id="about-email-link">anujat9987@gmail.com</a></span></li>
@@ -183,26 +183,26 @@
           <div class="section-container">
             <div class="section-header">
               <span class="section-number">02.</span>
-              <h2 class="section-title">3D TECHNICAL MATRIX</h2>
+              <h2 class="section-title">SKILLS &amp; TECHNICAL MATRIX</h2>
               <div class="section-line"></div>
             </div>
             
             <div class="skills-layout">
-              <!-- 3D Skill Tag Cloud (Three.js renders inside this container) -->
+              <!-- 3D Skill Tag Cloud -->
               <div class="skills-visualizer-container glassmorphic tilt-card" data-tilt id="skills-3d-container">
                 <div class="card-glow"></div>
                 <div class="visualizer-header">
-                  <span class="badge neon-glow-purple">INTERACTIVE 3D SKILL CLUSTER</span>
-                  <p class="visualizer-hint">Drag to rotate 3D sphere · Click nodes for detailed analytics</p>
+                  <span class="badge neon-glow-purple">INTERACTIVE 3D SKILL NETWORK</span>
+                  <p class="visualizer-hint">Drag to rotate sphere · Click nodes for detailed analytics</p>
                 </div>
                 <div id="skills-canvas-holder"></div>
               </div>
 
-              <!-- Skill details panel with interactive canvas charts -->
+              <!-- Skill details panel -->
               <div class="skills-detail-panel glassmorphic" id="skills-chart-panel">
                 <div class="card-glow"></div>
                 <h3 id="selected-skill-title">Select a Skill Node</h3>
-                <p id="selected-skill-desc">Hover or click a skill node in the 3D cluster to load database logs and visualization metrics.</p>
+                <p id="selected-skill-desc">Click any node in the 3D cluster to view proficiency breakdown and visualization metrics.</p>
                 
                 <div class="canvas-chart-wrapper">
                   <canvas id="skill-chart-canvas" width="400" height="240"></canvas>
@@ -230,7 +230,7 @@
           <div class="section-container">
             <div class="section-header">
               <span class="section-number">03.</span>
-              <h2 class="section-title">EDUCATION LOGS</h2>
+              <h2 class="section-title">EDUCATION &amp; ACADEMICS</h2>
               <div class="section-line"></div>
             </div>
 
@@ -244,7 +244,7 @@
                   <h3>B.Sc. Data Science</h3>
                   <h4 class="timeline-org">University of Mumbai</h4>
                   <p class="timeline-desc">
-                    Studying advanced probability, statistical modeling, database design, 3D data visualization, and machine learning structures.
+                    Studying probability, statistical modeling, database design, data visualization, and machine learning algorithms.
                   </p>
                   <div class="timeline-badge">Pursuing</div>
                 </div>
@@ -259,7 +259,7 @@
                   <h3>Higher Secondary Certificate (HSC)</h3>
                   <h4 class="timeline-org">HSC Board</h4>
                   <p class="timeline-desc">
-                    Focused on science curriculum with major subjects including physics, chemistry, and mathematics. Developed foundational analytical capabilities.
+                    Science stream with focus on physics, chemistry, and mathematics.
                   </p>
                   <div class="timeline-badge score">Score: 64.33%</div>
                 </div>
@@ -274,7 +274,7 @@
                   <h3>Secondary School Certificate (SSC)</h3>
                   <h4 class="timeline-org">SSC Board</h4>
                   <p class="timeline-desc">
-                    Acquired general education. Excelled in computational logic, mathematics, and natural science studies.
+                    General secondary education with strong focus on mathematics and physical sciences.
                   </p>
                   <div class="timeline-badge score">Score: 85.60%</div>
                 </div>
@@ -288,7 +288,7 @@
           <div class="section-container">
             <div class="section-header">
               <span class="section-number">04.</span>
-              <h2 class="section-title">FEATURED NEXUS PROJECTS</h2>
+              <h2 class="section-title">FEATURED PROJECTS</h2>
               <div class="section-line"></div>
             </div>
 
@@ -301,11 +301,11 @@
                   <div class="featured-project-image-glow"></div>
                 </div>
                 <div class="featured-project-details">
-                  <div class="featured-badge">FEATURED 3D &amp; AI PROJECT</div>
+                  <div class="featured-badge">DATA ANALYTICS &amp; AI</div>
                   <h3 class="featured-title">A3 — Autonomous AI Data Analyst</h3>
-                  <h4 class="featured-subtitle">Local-first, privacy-focused autonomous data analytics powered by AI agents.</h4>
+                  <h4 class="featured-subtitle">Local-first, privacy-focused autonomous data analytics workspace.</h4>
                   <p class="featured-desc">
-                    An advanced analytics workspace designed to profile data quality, run forecasting models, converse with an embedded AI assistant, and compile executive reports dynamically—all calculated locally.
+                    An analytics platform that profiles dataset quality, runs forecasting models, enables interactive data conversation via embedded AI, and outputs executive reports locally in browser.
                   </p>
                   
                   <div class="featured-specs">
@@ -313,7 +313,7 @@
                     <ul class="specs-list">
                       <li><span>📂</span> Local Dataset Upload</li>
                       <li><span>📈</span> Autonomous Forecasting</li>
-                      <li><span>💬</span> Chat with AI Agent</li>
+                      <li><span>💬</span> Interactive AI Assistant</li>
                       <li><span>📄</span> Executive Reporting</li>
                     </ul>
                   </div>
@@ -349,26 +349,26 @@
                   <div class="featured-project-image-glow"></div>
                 </div>
                 <div class="featured-project-details">
-                  <div class="featured-badge">FEATURED WEB APPLICATION</div>
+                  <div class="featured-badge">WEB APPLICATION</div>
                   <h3 class="featured-title">Scan2Serve — Fine Dining &amp; QR Ordering</h3>
-                  <h4 class="featured-subtitle">An intimate fine dining digital experience featuring wait-free QR ordering.</h4>
+                  <h4 class="featured-subtitle">Fine dining digital experience with table QR code ordering flow.</h4>
                   <p class="featured-desc">
-                    An elegant restaurant digital platform that streamlines table service. Guests scan a dynamic QR code at their table to view the interactive menu and order instantly.
+                    A responsive web platform streamlining table service. Restaurant guests scan table QR codes to browse the digital menu and place instant orders.
                   </p>
                   
                   <div class="featured-specs">
                     <div class="specs-title">Key Capabilities:</div>
                     <ul class="specs-list">
-                      <li><span>🍽️</span> Fine Dining Interactive Menu</li>
+                      <li><span>🍽️</span> Interactive Fine Dining Menu</li>
                       <li><span>📱</span> Table QR Code Order Flow</li>
                       <li><span>⚡</span> Instant Checkout Request</li>
-                      <li><span>🎨</span> Premium Glassmorphic UI</li>
+                      <li><span>🎨</span> Glassmorphic Layout</li>
                     </ul>
                   </div>
 
                   <div class="project-tags">
                     <span>HTML5</span>
-                    <span>CSS3 / Custom Variables</span>
+                    <span>CSS3</span>
                     <span>JavaScript</span>
                     <span>Responsive Web Design</span>
                   </div>
@@ -399,13 +399,12 @@
             </div>
 
             <div class="projects-grid">
-              <!-- Project Card 1: Deloitte -->
               <article class="project-card glassmorphic certificate-card tilt-card" data-tilt id="card-deloitte" data-cert="/certificates/data-analytics-simulation.jpg" data-title="Deloitte Data Analytics Job Simulation">
                 <div class="card-glow"></div>
                 <div class="project-img-container">
                   <img src="/certificates/data-analytics-simulation.jpg" alt="Deloitte Certificate" class="project-thumbnail">
                   <div class="thumbnail-overlay">
-                    <span class="view-cert-btn">✨ View Certificate</span>
+                    <span class="view-cert-btn">View Certificate</span>
                   </div>
                 </div>
                 <div class="project-card-content">
@@ -415,21 +414,20 @@
                   </div>
                   <h3 class="project-title">Deloitte Data Analytics Simulation</h3>
                   <p class="project-desc">
-                    Completed forensic technology and data analytics simulations covering data cleaning, analysis, and insights modeling.
+                    Completed forensic technology and data analytics simulations covering data cleaning and insights modeling.
                   </p>
                   <div class="project-links">
-                    <span class="badge neon-glow-cyan">Completed (Jan 2026)</span>
+                    <span class="badge neon-glow-cyan">Jan 2026</span>
                   </div>
                 </div>
               </article>
 
-              <!-- Project Card 2: Simplilearn -->
               <article class="project-card glassmorphic certificate-card tilt-card" data-tilt id="card-simplilearn" data-cert="/certificates/ai-beginners-guide.jpg" data-title="Artificial Intelligence Beginners Guide">
                 <div class="card-glow"></div>
                 <div class="project-img-container">
                   <img src="/certificates/ai-beginners-guide.jpg" alt="Simplilearn Certificate" class="project-thumbnail">
                   <div class="thumbnail-overlay">
-                    <span class="view-cert-btn">✨ View Certificate</span>
+                    <span class="view-cert-btn">View Certificate</span>
                   </div>
                 </div>
                 <div class="project-card-content">
@@ -439,21 +437,20 @@
                   </div>
                   <h3 class="project-title">AI Beginners Guide</h3>
                   <p class="project-desc">
-                    Gained core understanding of artificial intelligence, machine learning pipelines, deep learning models, and algorithm mechanics.
+                    Core understanding of artificial intelligence, machine learning pipelines, and model architectures.
                   </p>
                   <div class="project-links">
-                    <span class="badge neon-glow-purple">Completed (Dec 2025)</span>
+                    <span class="badge neon-glow-purple">Dec 2025</span>
                   </div>
                 </div>
               </article>
 
-              <!-- Project Card 3: uniAthena -->
               <article class="project-card glassmorphic certificate-card tilt-card" data-tilt id="card-uniathena" data-cert="/certificates/excel-formulas.jpg" data-title="Essentials of MS Excel - Formulas and Functions">
                 <div class="card-glow"></div>
                 <div class="project-img-container">
                   <img src="/certificates/excel-formulas.jpg" alt="uniAthena Certificate" class="project-thumbnail">
                   <div class="thumbnail-overlay">
-                    <span class="view-cert-btn">✨ View Certificate</span>
+                    <span class="view-cert-btn">View Certificate</span>
                   </div>
                 </div>
                 <div class="project-card-content">
@@ -463,21 +460,20 @@
                   </div>
                   <h3 class="project-title">Essentials of MS Excel</h3>
                   <p class="project-desc">
-                    Acquired expertise in formulas, logical statements, pivot formatting, and advanced spreadsheet operations.
+                    Expertise in formulas, cell logic, pivot tables, and spreadsheet data operations.
                   </p>
                   <div class="project-links">
-                    <span class="badge neon-glow-blue">Completed (Apr 2026)</span>
+                    <span class="badge neon-glow-blue">Apr 2026</span>
                   </div>
                 </div>
               </article>
 
-              <!-- Project Card 4: IBM Big Data -->
               <article class="project-card glassmorphic certificate-card tilt-card" data-tilt id="card-ibm-bigdata" data-cert="/certificates/big-data-101.jpg" data-title="IBM Big Data 101">
                 <div class="card-glow"></div>
                 <div class="project-img-container">
                   <img src="/certificates/big-data-101.jpg" alt="IBM Certificate" class="project-thumbnail">
                   <div class="thumbnail-overlay">
-                    <span class="view-cert-btn">✨ View Certificate</span>
+                    <span class="view-cert-btn">View Certificate</span>
                   </div>
                 </div>
                 <div class="project-card-content">
@@ -487,21 +483,20 @@
                   </div>
                   <h3 class="project-title">Big Data 101 — IBM</h3>
                   <p class="project-desc">
-                    Completed IBM certification covering Big Data technologies, Hadoop pipelines, scalability structures, and architectural analytics.
+                    IBM-certified course covering Big Data concepts, Hadoop ecosystem, and scalable analytics structures.
                   </p>
                   <div class="project-links">
-                    <span class="badge neon-glow-cyan">Completed (May 2026)</span>
+                    <span class="badge neon-glow-cyan">May 2026</span>
                   </div>
                 </div>
               </article>
 
-              <!-- Project Card 5: ICAT Aptitude Test -->
               <article class="project-card glassmorphic certificate-card tilt-card" data-tilt id="card-icat" data-cert="/certificates/icat-aptitude-test.jpg" data-title="Internship Common Aptitude Test Participation">
                 <div class="card-glow"></div>
                 <div class="project-img-container">
                   <img src="/certificates/icat-aptitude-test.jpg" alt="ICAT Certificate" class="project-thumbnail">
                   <div class="thumbnail-overlay">
-                    <span class="view-cert-btn">✨ View Certificate</span>
+                    <span class="view-cert-btn">View Certificate</span>
                   </div>
                 </div>
                 <div class="project-card-content">
@@ -511,21 +506,20 @@
                   </div>
                   <h3 class="project-title">Internship Aptitude Test</h3>
                   <p class="project-desc">
-                    Participated in ICAT screening, demonstrating proficiency in quantitative analysis, logic reasoning, and verbal interpretation.
+                    ICAT screening demonstrating quantitative analysis, logical reasoning, and verbal comprehension.
                   </p>
                   <div class="project-links">
-                    <span class="badge neon-glow-purple">Certified (Mar 2026)</span>
+                    <span class="badge neon-glow-purple">Mar 2026</span>
                   </div>
                 </div>
               </article>
 
-              <!-- Certificate Card 6: HackerRank Python Basic -->
               <article class="project-card glassmorphic certificate-card tilt-card" data-tilt id="card-hackerrank-python" data-cert="/certificates/hackerrank-python.jpg" data-title="Python (Basic) — Certificate of Accomplishment | HackerRank">
                 <div class="card-glow"></div>
                 <div class="project-img-container">
                   <img src="/certificates/hackerrank-python.jpg" alt="HackerRank Python Certificate" class="project-thumbnail">
                   <div class="thumbnail-overlay">
-                    <span class="view-cert-btn">✨ View Certificate</span>
+                    <span class="view-cert-btn">View Certificate</span>
                   </div>
                 </div>
                 <div class="project-card-content">
@@ -535,21 +529,20 @@
                   </div>
                   <h3 class="project-title">Python (Basic) — HackerRank</h3>
                   <p class="project-desc">
-                    Passed HackerRank Python certification, demonstrating proficiency in data structures, algorithms, and scripting.
+                    HackerRank certification testing fundamental Python syntax, data structures, and algorithmic scripting.
                   </p>
                   <div class="project-links">
-                    <span class="badge neon-glow-purple">Certified · May 2026</span>
+                    <span class="badge neon-glow-purple">May 2026</span>
                   </div>
                 </div>
               </article>
 
-              <!-- Project Card 7: Reliance Foundation AI-ML -->
               <article class="project-card glassmorphic certificate-card tilt-card" data-tilt id="card-reliance-aiml" data-cert="/certificates/reliance-ai-ml.jpg" data-title="AI-Machine Learning Engineer Certificate Course — Reliance Foundation | Skill India | NSDC">
                 <div class="card-glow"></div>
                 <div class="project-img-container">
                   <img src="/certificates/reliance-ai-ml.jpg" alt="Reliance Foundation AI-ML Certificate" class="project-thumbnail">
                   <div class="thumbnail-overlay">
-                    <span class="view-cert-btn">✨ View Certificate</span>
+                    <span class="view-cert-btn">View Certificate</span>
                   </div>
                 </div>
                 <div class="project-card-content">
@@ -559,21 +552,20 @@
                   </div>
                   <h3 class="project-title">AI-ML Engineer — Reliance</h3>
                   <p class="project-desc">
-                    Completed 150-hour online course on AI-Machine Learning Engineering offered by Reliance Foundation Skilling Academy.
+                    150-hour online engineering course offered by Reliance Foundation Skilling Academy with NSDC.
                   </p>
                   <div class="project-links">
-                    <span class="badge neon-glow-blue">Completed · Mar 2026</span>
+                    <span class="badge neon-glow-blue">Mar 2026</span>
                   </div>
                 </div>
               </article>
 
-              <!-- Certificate Card 8: TATA Forage GenAI -->
               <article class="project-card glassmorphic certificate-card tilt-card" data-tilt id="card-tata-forage" data-cert="/certificates/tata-forage-genai.jpg" data-title="GenAI Powered Data Analytics Job Simulation — TATA &amp; Forage">
                 <div class="card-glow"></div>
                 <div class="project-img-container">
                   <img src="/certificates/tata-forage-genai.jpg" alt="TATA Forage GenAI Certificate" class="project-thumbnail">
                   <div class="thumbnail-overlay">
-                    <span class="view-cert-btn">✨ View Certificate</span>
+                    <span class="view-cert-btn">View Certificate</span>
                   </div>
                 </div>
                 <div class="project-card-content">
@@ -581,12 +573,12 @@
                     <span>Job Simulation</span>
                     <span>GenAI</span>
                   </div>
-                  <h3 class="project-title">GenAI Data Analytics — TATA</h3>
+                  <h3 class="project-title">GenAI Analytics — TATA</h3>
                   <p class="project-desc">
-                    Completed TATA's GenAI simulation: EDA &amp; risk profiling, AI delinquency prediction, and business reporting.
+                    TATA &amp; Forage simulation covering EDA, risk profiling, AI delinquency prediction, and business reporting.
                   </p>
                   <div class="project-links">
-                    <span class="badge neon-glow-cyan">Completed · Jun 2026</span>
+                    <span class="badge neon-glow-cyan">Jun 2026</span>
                   </div>
                 </div>
               </article>
@@ -599,11 +591,11 @@
           <div class="section-container">
             <div class="section-header">
               <span class="section-number">06.</span>
-              <h2 class="section-title">ESTABLISH CONNECTION</h2>
+              <h2 class="section-title">GET IN TOUCH</h2>
               <div class="section-line"></div>
             </div>
 
-            <!-- Social Links Row -->
+            <!-- Social Links -->
             <div class="social-links-row">
               <a href="https://github.com/anujtiwari1427" target="_blank" rel="noopener noreferrer" class="social-link glassmorphic tilt-card" data-tilt id="github-link">
                 <span class="social-icon">
@@ -635,7 +627,7 @@
             <!-- Contact Form -->
             <div class="contact-form-panel glassmorphic contact-form-solo tilt-card" data-tilt>
               <div class="card-glow"></div>
-              <h3>Send a Direct Query</h3>
+              <h3>Send a Message</h3>
               <form id="contact-form">
                 <div class="form-row">
                   <div class="form-group">
@@ -649,10 +641,10 @@
                 </div>
                 <div class="form-group">
                   <label for="form-message">Message</label>
-                  <textarea id="form-message" required rows="6" placeholder="Hello Anuj, I would like to collaborate on..."></textarea>
+                  <textarea id="form-message" required rows="6" placeholder="Hello Anuj, I would like to discuss..."></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block" id="form-submit-btn">
-                  <span>Send Signal</span>
+                  <span>Send Message</span>
                   <div class="btn-glow-bar"></div>
                 </button>
               </form>
@@ -663,16 +655,13 @@
         <!-- FOOTER -->
         <footer class="footer">
           <div class="footer-container">
-            <p>&copy; 2026 Anuj Rajesh Tiwari. Interactive 3D Web Science &amp; Portfolio Nexus.</p>
-            <div class="footer-meta">
-              <span class="footer-badge neon-glow-cyan">System Status: 3D Engine Active</span>
-            </div>
+            <p>&copy; 2026 Anuj Rajesh Tiwari. Data Science &amp; Software Engineering Portfolio.</p>
           </div>
         </footer>
       </main>
     </div>
 
-    <!-- Interactive Certificate Preview Modal -->
+    <!-- Certificate Preview Modal -->
     <div id="cert-modal" class="cert-modal">
       <span class="modal-close" id="modal-close-btn">&times;</span>
       <div class="modal-content-wrapper">
